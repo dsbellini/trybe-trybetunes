@@ -3,7 +3,8 @@ import { createUser } from '../services/userAPI';
 
 export function Login() {
   const [disabledButton, setDisabledButton] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -16,24 +17,25 @@ export function Login() {
     };
     isNameValid();
 
-    createUser({ name: value });
+    setUser(value);
   };
 
-  const handleLoginButton = (event: FormEvent<HTMLFormElement>) => {
+  const handleLoginButton = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
 
-    if (isLoading) {
-      return (
-        <div>
-          <h1>Carregando...</h1>
-        </div>
-      );
-    }
-
-    // handleInputChange();
+    await createUser({ name: user });
 
     setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <div>
+        <h1>Carregando...</h1>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={ handleLoginButton }>
