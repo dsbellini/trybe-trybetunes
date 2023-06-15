@@ -1,10 +1,14 @@
 import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
+import { Carregando } from '../helpers/Carregando';
 
 export function Login() {
   const [disabledButton, setDisabledButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState('');
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -27,13 +31,12 @@ export function Login() {
     await createUser({ name: user });
 
     setIsLoading(false);
+    navigate('/search');
   };
 
   if (isLoading) {
     return (
-      <div>
-        <h1>Carregando...</h1>
-      </div>
+      <Carregando />
     );
   }
 
