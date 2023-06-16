@@ -79,8 +79,10 @@ export function Search() {
                         data-testid={ `link-to-album-${album.collectionId}` }
                         to={ `/album/${album.collectionId}` }
                       >
-                        {album.collectionName}
                         <img src={ album.artworkUrl100 } alt="album" />
+                        <div>
+                          {album.collectionName}
+                        </div>
                       </Link>
                     </li>
                   ))}
