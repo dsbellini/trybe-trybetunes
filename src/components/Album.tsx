@@ -20,7 +20,6 @@ export function Album() {
       setMusics(resultMusic);
       setIsLoading(false);
       setLoadedPage(true);
-      console.log(resultMusic);
     };
     getMusicData();
   }, [paramId]);
@@ -36,6 +35,7 @@ export function Album() {
     <main>
       {loadedPage && musics !== undefined ? (
         <>
+
           <h1
             data-testid="artist-name"
             key={ musics[0].artistId }
@@ -45,12 +45,13 @@ export function Album() {
           <h2 data-testid="album-name">
             {musics[0].collectionName}
           </h2>
+
           <ul>
             {musics && musics.length > 1 && musics.slice(1).map((music) => (
-              <li key={ music.trackId }>
+              <li key={ 'trackId' in music ? music.trackId : music.collectionId }>
                 <MusicCard
                   trackName={ music.trackName }
-                  previewUrl={ music.previewUrl }
+                  previewUrl={ 'previewUrl' in music ? music.previewUrl : '' }
                 />
               </li>
             ))}
@@ -61,3 +62,5 @@ export function Album() {
     </main>
   );
 }
+
+// trackName={ 'trackName' in music ? music.trackName : '' }
