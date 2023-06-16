@@ -80,6 +80,7 @@ export function Search() {
                         to={ `/album/${album.collectionId}` }
                       >
                         {album.collectionName}
+                        <img src={ album.artworkUrl100 } alt="album" />
                       </Link>
                     </li>
                   ))}
