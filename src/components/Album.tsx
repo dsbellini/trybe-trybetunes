@@ -9,6 +9,7 @@ export function Album() {
   const [musics, setMusics] = useState<[AlbumType, ...SongType[]]>();
   const [isLoading, setIsLoading] = useState(false);
   const [loadedPage, setLoadedPage] = useState(false);
+  const [favoriteSong, setFavoriteSong] = useState<string[]>([]);
 
   const { id } = useParams();
   const paramId = String(id);
@@ -23,6 +24,23 @@ export function Album() {
     };
     getMusicData();
   }, [paramId]);
+
+  const addFavoriteSong = (favoriteId: string) => {
+    const verifyId = favoriteSong.some((song) => song === favoriteId);
+
+    if (verifyId) {
+      const qualquerNome = favoriteSong.filter((songId) => songId !== favoriteId);
+      setFavoriteSong(qualquerNome);
+    } else {
+      const qualquerNome = [...favoriteSong, favoriteId];
+      setFavoriteSong(qualquerNome);
+    }
+  };
+
+  const isChecked = (favoriteId: string) => {
+    const verifyId = favoriteSong.some((song) => song === favoriteId);
+    return verifyId;
+  };
 
   if (isLoading) {
     return (
@@ -52,6 +70,9 @@ export function Album() {
                 <MusicCard
                   trackName={ 'trackName' in music ? music.trackName : '' }
                   previewUrl={ 'previewUrl' in music ? music.previewUrl : '' }
+                  trackId={ 'trackId' in music ? music.trackId : 0 }
+                  addFavoriteSong={ addFavoriteSong }
+                  isChecked={ isChecked }
                 />
               </li>
             ))}

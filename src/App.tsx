@@ -18,11 +18,3 @@ function App() {
 }
 
 export default App;
-
-// <Routes>
-//   <Route path="/" element={ <Layout /> }>
-//     <Route index element={ <Home /> } />
-//     <Route path="/profile/:username" element={ <Profile /> } />
-//   </Route>
-//   <Route path="/*" element={ <NotFound /> } />
-// </Routes>;
