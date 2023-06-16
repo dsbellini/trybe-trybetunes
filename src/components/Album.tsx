@@ -50,7 +50,7 @@ export function Album() {
             {musics && musics.length > 1 && musics.slice(1).map((music) => (
               <li key={ 'trackId' in music ? music.trackId : music.collectionId }>
                 <MusicCard
-                  trackName={ music.trackName }
+                  trackName={ 'trackName' in music ? music.trackName : '' }
                   previewUrl={ 'previewUrl' in music ? music.previewUrl : '' }
                 />
               </li>

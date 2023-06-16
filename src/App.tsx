@@ -3,15 +3,26 @@ import { Login } from './components/Login';
 import './index.css';
 import { Search } from './components/Search';
 import { Album } from './components/Album';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={ <Login /> } />
-      <Route path="/search" element={ <Search /> } />
-      <Route path="/album/:id" element={ <Album /> } />
+      <Route path="/" element={ <Layout /> }>
+        <Route path="/search" element={ <Search /> } />
+        <Route path="/album/:id" element={ <Album /> } />
+      </Route>
     </Routes>
   );
 }
 
 export default App;
+
+// <Routes>
+//   <Route path="/" element={ <Layout /> }>
+//     <Route index element={ <Home /> } />
+//     <Route path="/profile/:username" element={ <Profile /> } />
+//   </Route>
+//   <Route path="/*" element={ <NotFound /> } />
+// </Routes>;
