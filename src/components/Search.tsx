@@ -8,6 +8,7 @@ export function Search() {
   const [inputValue, setInputValue] = useState('');
   const [artist, setArtist] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [clickedButton, setClickedButton] = useState(false);
   const [albums, setAlbums] = useState<AlbumType[]>([]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +24,7 @@ export function Search() {
     const result = await searchAlbumsAPI(inputValue);
     setAlbums(result);
     setIsLoading(false);
+    setClickedButton(true);
   };
 
   if (isLoading) {
@@ -33,7 +35,7 @@ export function Search() {
 
   return (
     <>
-      <h1>Pesquisar artista</h1>
+      <h1>Pesquisar álbuns</h1>
       <form>
         <label htmlFor="search-input">
           <input
@@ -59,25 +61,33 @@ export function Search() {
       </form>
 
       <section>
-        {albums.length > 0 ? (
-          <h1>
-            Resultado de álbuns de:
-            {' '}
-            {artist}
-            <ul>
-              {albums.map((album) => (
-                <li key={ album.collectionId }>
-                  <Link
-                    data-testid={ `link-to-album-${album.collectionId}` }
-                    to={ `/album/${album.collectionId}` }
-                  >
-                    {album.collectionName}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </h1>
-        ) : <h1>Nenhum álbum foi encontrado</h1>}
+        {clickedButton && albums.length === 0 ? (
+          <h1>Nenhum álbum foi encontrado</h1>
+        ) : (
+          <section>
+            {clickedButton && (
+              <section>
+                <h1>
+                  Resultado de álbuns de:
+                  {' '}
+                  {artist}
+                </h1>
+                <ul>
+                  {albums.map((album) => (
+                    <li key={ album.collectionId }>
+                      <Link
+                        data-testid={ `link-to-album-${album.collectionId}` }
+                        to={ `/album/${album.collectionId}` }
+                      >
+                        {album.collectionName}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </section>
+        )}
       </section>
     </>
   );
