@@ -1,4 +1,4 @@
-# :music: README - Trybetunes ! :music:
+# :song: README - Trybetunes ! :song:
 
 <details>
   <summary><strong>👨‍💻 O que foi desenvolvido</strong></summary><br />
