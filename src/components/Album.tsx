@@ -4,6 +4,7 @@ import getMusics from '../services/musicsAPI';
 import { Carregando } from '../helpers/Carregando';
 import { AlbumType, SongType } from '../types';
 import { MusicCard } from './MusicCard';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 export function Album() {
   const [musics, setMusics] = useState<[AlbumType, ...SongType[]]>();
@@ -29,12 +30,15 @@ export function Album() {
     const verifyId = favoriteSong.some((song) => song === favoriteId);
 
     if (verifyId) {
-      const qualquerNome = favoriteSong.filter((songId) => songId !== favoriteId);
-      setFavoriteSong(qualquerNome);
+      const filteredFavoriteSong = favoriteSong.filter((songId) => songId !== favoriteId);
+      setFavoriteSong(filteredFavoriteSong);
     } else {
-      const qualquerNome = [...favoriteSong, favoriteId];
-      setFavoriteSong(qualquerNome);
+      const filteredFavoriteSong = [...favoriteSong, favoriteId];
+      setFavoriteSong(filteredFavoriteSong);
     }
+
+    // addSong();
+    // removeSong();
   };
 
   const isChecked = (favoriteId: string) => {

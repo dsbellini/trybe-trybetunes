@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import emptyHeart from '../images/empty_heart.png';
 import checkedHeart from '../images/checked_heart.png';
 
@@ -42,9 +41,3 @@ export function MusicCard(
     </>
   );
 }
-
-//   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const { value } = event.target;
-//     setHeart(heart === value ? 'off' : 'on');
-//     addFavoriteSong();
-//   };
