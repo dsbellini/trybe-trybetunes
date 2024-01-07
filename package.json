@@ -17,7 +17,7 @@
     "react-router-dom": "^6.10.0",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://dsbellini.github.io/trybe-trybetunes",
+  "homepage": "https://dsbellini.github.io/trybetunes",
   "scripts": {
     "build": "vite build",
     "test": "vitest",
