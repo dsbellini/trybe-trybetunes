@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Button, Card, Col, Form, FormLabel, ListGroup, Row } from 'react-bootstrap';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import { Carregando } from '../helpers/Carregando';
 import { AlbumType } from '../types';
+import './searchCSS.css';
 
 export function Search() {
   const [inputValue, setInputValue] = useState('');
@@ -35,61 +36,82 @@ export function Search() {
 
   return (
     <>
-      <h1>Pesquisar álbuns</h1>
-      <form>
-        <label htmlFor="search-input">
-          <input
-            id="search-input"
-            type="text"
-            value={ inputValue }
-            data-testid="search-artist-input"
-            placeholder="Nome do artista"
-            onChange={ handleInputChange }
-          />
-        </label>
-        <label htmlFor="button-search">
-          <button
-            id="button-search"
-            type="submit"
-            onClick={ handleClickButton }
-            data-testid="search-artist-button"
-            disabled={ inputValue.length < 2 }
-          >
-            Pesquisar
-          </button>
-        </label>
-      </form>
+      <Form className="search-group">
+        <Form.Group className="mb-3">
+          <div className="search-form">
+            <input
+              id="search-input"
+              type="text"
+              value={ inputValue }
+              data-testid="search-artist-input"
+              placeholder="Nome do artista"
+              onChange={ handleInputChange }
+            />
+            <Button
+              className="search-button"
+              id="button-search"
+              type="submit"
+              variant="primary"
+              onClick={ handleClickButton }
+              data-testid="search-artist-button"
+              disabled={ inputValue.length < 2 }
+            >
+              Pesquisar
+            </Button>
+          </div>
+        </Form.Group>
+      </Form>
 
       <section>
         {clickedButton && albums.length === 0 ? (
           <h1>Nenhum álbum foi encontrado</h1>
         ) : (
-          <section>
+          <ListGroup>
             {clickedButton && (
               <section>
-                <h1>
-                  Resultado de álbuns de:
-                  {' '}
-                  {artist}
-                </h1>
-                <ul>
-                  {albums.map((album) => (
-                    <li key={ album.collectionId }>
-                      <Link
-                        data-testid={ `link-to-album-${album.collectionId}` }
-                        to={ `/album/${album.collectionId}` }
-                      >
-                        <img src={ album.artworkUrl100 } alt="album" />
-                        <div>
-                          {album.collectionName}
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                {clickedButton && albums.length === 0 ? (
+                  <h1>Nenhum álbum foi encontrado</h1>
+                ) : (
+                  <ListGroup>
+                    {clickedButton && (
+                      <section className="result-section">
+                        <h1>
+                          Resultado de álbuns de:
+                          {' '}
+                          {artist}
+                        </h1>
+                        <Row>
+                          {albums.map((album) => (
+                            <Col md={ 1 } key={ album.collectionId }>
+                              {' '}
+                              {/* Dividindo em duas colunas */}
+                              <Card style={ { marginBottom: '20px' } }>
+                                <Card.Img
+                                  variant="top"
+                                  src={ album.artworkUrl100 }
+                                  alt="album"
+                                />
+                                <Card.Body>
+                                  <Card.Title>{album.collectionName}</Card.Title>
+                                  <Button
+                                    variant="primary"
+                                    href={ `/album/${album.collectionId}` }
+                                  >
+                                    Ver detalhes
+
+                                  </Button>
+                                </Card.Body>
+                              </Card>
+                            </Col>
+                          ))}
+                        </Row>
+                      </section>
+                    )}
+                  </ListGroup>
+                )}
               </section>
             )}
-          </section>
+          </ListGroup>
         )}
       </section>
     </>

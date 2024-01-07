@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Nav } from 'react-bootstrap';
 import { getUser } from '../services/userAPI';
 import { Carregando } from '../helpers/Carregando';
 import { UserType } from '../types';
+import './header.css';
 
 const USER_INITIAL = {
   name: '',
@@ -32,29 +34,22 @@ export function Header() {
   }
 
   return (
-    <header data-testid="header-component">
+    <header data-testid="header-component" className="header">
 
-      <NavLink
-        data-testid="link-to-search"
-        to="/search"
-      >
-        Procurar
-      </NavLink>
-      <NavLink
-        data-testid="link-to-favorites"
-        to="/favorites"
-      >
-        Favoritos
-      </NavLink>
-      <NavLink
-        data-testid="link-to-profile"
-        to="/profile"
-      >
-        Perfil
-      </NavLink>
+      {/* <Nav.Item>
+        <Nav.Link
+          data-testid="link-to-search"
+          href="/search"
+        >
+          Procurar
+        </Nav.Link>
+      </Nav.Item> */}
 
       <h1 data-testid="header-user-name">
+        Olá,
+        {' '}
         {user.name}
+        ! Seja bem-vindo(a)!
       </h1>
 
     </header>

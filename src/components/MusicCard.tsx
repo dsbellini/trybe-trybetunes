@@ -24,7 +24,7 @@ export function MusicCard(
         <code>audio</code>
       </audio>
 
-      <label
+      {/* <label
         data-testid={ `checkbox-music-${trackId}` }
         htmlFor={ `favorite-${trackId}` }
       >
@@ -37,7 +37,7 @@ export function MusicCard(
           checked={ isChecked(String(trackId)) }
           onChange={ () => addFavoriteSong(String(trackId)) }
         />
-      </label>
+      </label> */}
     </>
   );
 }

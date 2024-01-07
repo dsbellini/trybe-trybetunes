@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button, ListGroup } from 'react-bootstrap';
 import getMusics from '../services/musicsAPI';
 import { Carregando } from '../helpers/Carregando';
 import { AlbumType, SongType } from '../types';
 import { MusicCard } from './MusicCard';
 import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import './albumCSS.css';
 
 export function Album() {
   const [musics, setMusics] = useState<[AlbumType, ...SongType[]]>();
@@ -14,6 +16,7 @@ export function Album() {
 
   const { id } = useParams();
   const paramId = String(id);
+  const nav = useNavigate();
 
   useEffect(() => {
     const getMusicData = async () => {
@@ -57,7 +60,12 @@ export function Album() {
     <main>
       {loadedPage && musics !== undefined ? (
         <>
+          <Button
+            onClick={ () => nav('/search') }
+          >
+            Voltar
 
+          </Button>
           <h1
             data-testid="artist-name"
             key={ musics[0].artistId }
@@ -68,9 +76,13 @@ export function Album() {
             {musics[0].collectionName}
           </h2>
 
-          <ul>
+          <ListGroup variant="flush">
             {musics && musics.length > 1 && musics.slice(1).map((music) => (
-              <li key={ 'trackId' in music ? music.trackId : music.collectionId }>
+              <ListGroup.Item
+                key={ 'trackId' in music ? music.trackId : music.collectionId }
+                variant="dark"
+                className="list"
+              >
                 <MusicCard
                   trackName={ 'trackName' in music ? music.trackName : '' }
                   previewUrl={ 'previewUrl' in music ? music.previewUrl : '' }
@@ -78,9 +90,9 @@ export function Album() {
                   addFavoriteSong={ addFavoriteSong }
                   isChecked={ isChecked }
                 />
-              </li>
+              </ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
 
         </>
       ) : 'Album não encontrado'}

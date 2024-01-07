@@ -1,7 +1,10 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button, Form, FormLabel, Image } from 'react-bootstrap';
 import { createUser } from '../services/userAPI';
 import { Carregando } from '../helpers/Carregando';
+import './loginCSS.css';
+import logo from '../images/logo.99baff09.svg';
 
 export function Login() {
   const [disabledButton, setDisabledButton] = useState(true);
@@ -41,27 +44,31 @@ export function Login() {
   }
 
   return (
-    <form onSubmit={ handleLoginButton }>
-      <label htmlFor="input-login-name">
-        <input
-          id="input-login-name"
-          data-testid="login-name-input"
-          type="text"
-          placeholder="Insira seu nome"
-          name="name"
-          onChange={ handleInputChange }
-        />
-      </label>
-      <label htmlFor="button-login">
-        <button
-          id="button-login"
-          type="submit"
-          data-testid="login-submit-button"
-          disabled={ disabledButton }
-        >
-          Entrar
-        </button>
-      </label>
-    </form>
+    <div className="login-container">
+      <Form onSubmit={ handleLoginButton } className="login-form">
+        <Image src={ logo } alt="logo" className="logo" rounded />
+        <FormLabel htmlFor="input-login-name">
+          <input
+            id="input-login-name"
+            data-testid="login-name-input"
+            type="text"
+            placeholder="Insira seu nome"
+            name="name"
+            onChange={ handleInputChange }
+          />
+        </FormLabel>
+        <label htmlFor="button-login">
+          <Button
+            variant="success"
+            id="button-login"
+            type="submit"
+            data-testid="login-submit-button"
+            disabled={ disabledButton }
+          >
+            Entrar
+          </Button>
+        </label>
+      </Form>
+    </div>
   );
 }
