@@ -2,7 +2,7 @@
 
 Trybetunes é uma aplicação desenvolvida em React.js que acessa uma API do iTunes e cria um ambiente em que o usuário pode pesquisar músicas, ouvir uma prévia e favoritar suas músicas preferidas.
 > 
-> - Acesse o [deploy da aplicação aqui]()
+> - Acesse o [deploy da aplicação aqui](https://dsbellini.github.io/trybe-trybetunes/)
 <details>
 <summary>Informações para utilizar a aplicação no deploy</summary><br>
  
